@@ -42,6 +42,16 @@ defmodule PhoenixChannelClient.Adapters.WebsocketClient do
     send state.sender, {:receive, state.serializer.decode!(msg)}
     {:ok, state}
   end
+  
+  @doc """
+  Receives JSON encoded Socket.Message from remote WS endpoint and
+  forwards message to client sender process
+  """
+  def websocket_handle({:binary, msg}, _conn_state, state) do
+    Logger.debug "Handle in: #{inspect msg}"
+    send state.sender, {:receive, state.serializer.decode!(msg)}
+    {:ok, state}
+  end
 
   @doc """
   Sends JSON encoded Socket.Message to remote WS endpoint
