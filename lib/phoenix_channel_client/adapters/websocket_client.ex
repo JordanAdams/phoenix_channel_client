@@ -38,7 +38,7 @@ defmodule PhoenixChannelClient.Adapters.WebsocketClient do
   forwards message to client sender process
   """
   def websocket_handle({:text, msg}, _conn_state, state) do
-    Logger.debug "Handle in: #{inspect msg}"
+    Logger.debug "Handle in (text): #{inspect msg}"
     send state.sender, {:receive, state.serializer.decode!(msg)}
     {:ok, state}
   end
@@ -48,7 +48,7 @@ defmodule PhoenixChannelClient.Adapters.WebsocketClient do
   forwards message to client sender process
   """
   def websocket_handle({:binary, msg}, _conn_state, state) do
-    Logger.debug "Handle in: #{inspect msg}"
+    Logger.debug "Handle in (binary): #{inspect msg}"
     send state.sender, {:receive, state.serializer.decode_binary!(msg)}
     {:ok, state}
   end
