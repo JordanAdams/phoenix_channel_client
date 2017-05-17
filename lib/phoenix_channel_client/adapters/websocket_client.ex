@@ -49,7 +49,7 @@ defmodule PhoenixChannelClient.Adapters.WebsocketClient do
   """
   def websocket_handle({:binary, msg}, _conn_state, state) do
     Logger.debug "Handle in: #{inspect msg}"
-    send state.sender, {:receive, state.serializer.decode!(msg)}
+    send state.sender, {:receive, state.serializer.decode_binary!(msg)}
     {:ok, state}
   end
 
