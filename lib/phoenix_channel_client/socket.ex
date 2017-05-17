@@ -120,9 +120,8 @@ defmodule PhoenixChannelClient.Socket do
   end
 
   # New Messages from the socket come in here
-  def handle_info({:receive, %{"topic" => topic, "event" => event, "payload" => payload}} = msg, %{channels: channels} = state) do
+  def handle_info({:receive, %{"topic" => topic, "event" => event, "payload" => payload, "ref" => ref}} = msg, %{channels: channels} = state) do
     Logger.debug "Socket Received: #{inspect msg}"
-    ref = Map.get(msg, "ref", "0")
     Enum.filter(channels, fn({_channel, channel_topic}) ->
       topic == channel_topic
     end)
